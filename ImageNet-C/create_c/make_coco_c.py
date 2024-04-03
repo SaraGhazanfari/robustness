@@ -62,7 +62,7 @@ class DistortCOCO(data.Dataset):
             img = self.transform(img)
             img = self.method(img, self.severity)
 
-        save_path = '/scratch/sg7457/dataset/test2014-c-' + self.method.__name__ + \
+        save_path = '/scratch/sg7457/dataset/val2014-c-' + self.method.__name__ + \
                     '/' + str(self.severity)
 
         if not os.path.exists(save_path):
@@ -531,7 +531,7 @@ def save_distorted(method=gaussian_noise):
     severity = 5
     print(method.__name__, severity)
     distorted_dataset = DistortCOCO(
-        root="/scratch/sg7457/dataset/test2014",
+        root="/scratch/sg7457/dataset/val2014",
         method=method, severity=severity,
         transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224)]))
     distorted_dataset_loader = torch.utils.data.DataLoader(
