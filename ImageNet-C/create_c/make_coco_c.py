@@ -56,7 +56,7 @@ class DistortCOCO(data.Dataset):
         self.loader = loader
 
     def __getitem__(self, index):
-        path = self.imgs[index]
+        path = Image.open(self.imgs[index]).convert("RGB")
         img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
@@ -533,7 +533,7 @@ def save_distorted(method=gaussian_noise):
         distorted_dataset = DistortCOCO(
             root="/scratch/sg7457/dataset/test2014",
             method=method, severity=severity,
-            transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224)]))
+            transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224), trn.ToTensor()]))
         distorted_dataset_loader = torch.utils.data.DataLoader(
             distorted_dataset, batch_size=100, shuffle=False, num_workers=4)
 
