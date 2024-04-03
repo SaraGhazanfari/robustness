@@ -69,7 +69,6 @@ class DistortCOCO(data.Dataset):
             os.makedirs(save_path)
 
         save_path += path[path.rindex('/'):]
-        print(np.uint8(img).shape)
         Image.fromarray(np.uint8(img)).save(save_path, quality=85, optimize=True)
 
         return 0  # we do not care about returning the data
@@ -533,7 +532,7 @@ def save_distorted(method=gaussian_noise):
         distorted_dataset = DistortCOCO(
             root="/scratch/sg7457/dataset/test2014",
             method=method, severity=severity,
-            transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224), trn.ToTensor()]))
+            transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224)]))
         distorted_dataset_loader = torch.utils.data.DataLoader(
             distorted_dataset, batch_size=100, shuffle=False, num_workers=4)
 
