@@ -62,7 +62,7 @@ class DistortCOCO(data.Dataset):
             img = self.transform(img)
             img = self.method(img, self.severity)
 
-        save_path = '/scratch/sg7457/dataset/test2014-c' + self.method.__name__ + \
+        save_path = '/scratch/sg7457/dataset/test2014-c-' + self.method.__name__ + \
                     '/' + str(self.severity)
 
         if not os.path.exists(save_path):
