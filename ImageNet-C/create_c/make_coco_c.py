@@ -1,57 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import os
-from PIL import Image
 import os.path
-import time
-import torch
-import torchvision.datasets as dset
-import torchvision.transforms as trn
-import torch.utils.data as data
-import numpy as np
 
+import numpy as np
+import torch
+import torch.utils.data as data
+import torchvision.transforms as trn
 from PIL import Image
 
 # /////////////// Data Loader ///////////////
 
 
 IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm']
-
-
-def is_image_file(filename):
-    """Checks if a file is an image.
-    Args:
-        filename (string): path to a file
-    Returns:
-        bool: True if the filename ends with a known image extension
-    """
-    filename_lower = filename.lower()
-    return any(filename_lower.endswith(ext) for ext in IMG_EXTENSIONS)
-
-
-def find_classes(dir):
-    classes = [d for d in os.listdir(dir) if os.path.isdir(os.path.join(dir, d))]
-    classes.sort()
-    class_to_idx = {classes[i]: i for i in range(len(classes))}
-    return classes, class_to_idx
-
-
-def make_dataset(dir, class_to_idx):
-    images = []
-    dir = os.path.expanduser(dir)
-    for target in sorted(os.listdir(dir)):
-        d = os.path.join(dir, target)
-        if not os.path.isdir(d):
-            continue
-
-        for root, _, fnames in sorted(os.walk(d)):
-            for fname in sorted(fnames):
-                if is_image_file(fname):
-                    path = os.path.join(root, fname)
-                    item = (path, class_to_idx[target])
-                    images.append(item)
-
-    return images
 
 
 def pil_loader(path):
@@ -94,7 +55,6 @@ class DistortCOCO(data.Dataset):
         self.transform = transform
         self.loader = loader
 
-
     def __getitem__(self, index):
         path = self.imgs[index]
         img = self.loader(path)
@@ -125,7 +85,6 @@ from skimage.filters import gaussian
 from io import BytesIO
 from wand.image import Image as WandImage
 from wand.api import library as wandlibrary
-import wand.color as WandColor
 import ctypes
 from PIL import Image as PILImage
 import cv2
@@ -531,7 +490,7 @@ def pixelate(x, severity=1):
 
 # mod of https://gist.github.com/erniejunior/601cdf56d2b424757de5
 def elastic_transform(image, severity=1):
-    c = [(244 * 2, 244 * 0.7, 244 * 0.1),   # 244 should have been 224, but ultimately nothing is incorrect
+    c = [(244 * 2, 244 * 0.7, 244 * 0.1),  # 244 should have been 224, but ultimately nothing is incorrect
          (244 * 2, 244 * 0.08, 244 * 0.2),
          (244 * 0.05, 244 * 0.01, 244 * 0.02),
          (244 * 0.07, 244 * 0.01, 244 * 0.02),
