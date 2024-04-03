@@ -79,7 +79,7 @@ def default_loader(path):
 
 
 class DistortCOCO(data.Dataset):
-    def __init__(self, root, method, severity, transform=None):
+    def __init__(self, root, method, severity, transform=None, loader=None):
 
         imgs = os.listdir(root)
         if len(imgs) == 0:
@@ -92,6 +92,7 @@ class DistortCOCO(data.Dataset):
         self.severity = severity
         self.imgs = imgs
         self.transform = transform
+        self.loader = loader
 
 
     def __getitem__(self, index):
