@@ -60,9 +60,7 @@ class DistortCOCO(data.Dataset):
         img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
-            print(img.shape)
             img = self.method(img, self.severity)
-            print(img.shape)
 
         save_path = '/scratch/sg7457/dataset/test2014-c' + self.method.__name__ + \
                     '/' + str(self.severity)
@@ -71,7 +69,7 @@ class DistortCOCO(data.Dataset):
             os.makedirs(save_path)
 
         save_path += path[path.rindex('/'):]
-
+        print(img.shape)
         Image.fromarray(np.uint8(img)).save(save_path, quality=85, optimize=True)
 
         return 0  # we do not care about returning the data
