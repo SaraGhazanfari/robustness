@@ -69,7 +69,7 @@ class DistortCOCO(data.Dataset):
             os.makedirs(save_path)
 
         save_path += path[path.rindex('/'):]
-        print(img.shape)
+        print(np.uint8(img).shape)
         Image.fromarray(np.uint8(img)).save(save_path, quality=85, optimize=True)
 
         return 0  # we do not care about returning the data
