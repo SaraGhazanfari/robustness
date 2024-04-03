@@ -527,16 +527,17 @@ def elastic_transform(image, severity=1):
 
 
 def save_distorted(method=gaussian_noise):
-    for severity in range(1, 6):
-        print(method.__name__, severity)
-        distorted_dataset = DistortCOCO(
-            root="/scratch/sg7457/dataset/test2014",
-            method=method, severity=severity,
-            transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224)]))
-        distorted_dataset_loader = torch.utils.data.DataLoader(
-            distorted_dataset, batch_size=100, shuffle=False, num_workers=4)
+    # for severity in range(1, 6):
+    severity = 5
+    print(method.__name__, severity)
+    distorted_dataset = DistortCOCO(
+        root="/scratch/sg7457/dataset/test2014",
+        method=method, severity=severity,
+        transform=trn.Compose([trn.Resize(256), trn.CenterCrop(224)]))
+    distorted_dataset_loader = torch.utils.data.DataLoader(
+        distorted_dataset, batch_size=100, shuffle=False, num_workers=4)
 
-        for _ in distorted_dataset_loader: continue
+    for _ in distorted_dataset_loader: continue
 
 
 # /////////////// End Further Setup ///////////////
