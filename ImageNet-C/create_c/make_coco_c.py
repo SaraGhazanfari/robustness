@@ -19,7 +19,6 @@ def pil_loader(path):
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
     with open(path, 'rb') as f:
         img = Image.open(f)
-        print(img.size)
         return img.convert('RGB')
 
 
@@ -61,7 +60,9 @@ class DistortCOCO(data.Dataset):
         img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
+            print(img.shape)
             img = self.method(img, self.severity)
+            print(img.shape)
 
         save_path = '/scratch/sg7457/dataset/test2014-c' + self.method.__name__ + \
                     '/' + str(self.severity)
