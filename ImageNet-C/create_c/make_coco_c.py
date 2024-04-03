@@ -66,7 +66,7 @@ class DistortCOCO(data.Dataset):
                     '/' + str(self.severity)
 
         if not os.path.exists(save_path):
-            os.makedirs(save_path)
+            os.makedirs(save_path, exist_ok=True)
 
         save_path += path[path.rindex('/'):]
         Image.fromarray(np.uint8(img)).save(save_path, quality=85, optimize=True)
