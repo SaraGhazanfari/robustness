@@ -56,8 +56,8 @@ class DistortCOCO(data.Dataset):
         self.loader = loader
 
     def __getitem__(self, index):
-
-        img = self.loader(os.path.join(self.root, self.imgs[index]))
+        path = os.path.join(self.root, self.imgs[index])
+        img = self.loader(path)
         if self.transform is not None:
             img = self.transform(img)
             img = self.method(img, self.severity)
